@@ -98,9 +98,9 @@ class Member(AbstractBaseUser):
     gender = models.CharField(
         max_length=50, blank=True, null=True, choices=GENDER_C)
     display_photo = models.ImageField(
-        upload_to='display_photo', default='default_display_photo.jpg', null=True, blank=True)
+        upload_to='members/', default='members/default_dp.jpg', null=True, blank=True)
     banner_photo = models.ImageField(
-        upload_to='banner_photo', default='default_banner_photo.jpg', null=True, blank=True)
+        upload_to='members/', default='members/default_bp.jpg', null=True, blank=True)
     description = models.TextField(null=True, max_length=400)
     education_level = models.CharField(
         max_length=20, choices=ED_LEVEL_C, default=None, null=True, blank=True)

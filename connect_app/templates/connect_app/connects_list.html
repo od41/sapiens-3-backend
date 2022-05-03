@@ -8,4 +8,20 @@
     </ul>
 </nav>
 
-<h1>Connect</h1>
+<h1>Roomies for you</h1>
+
+{% for member in member_list %}
+    <div>
+        <strong>
+            {{ member.get_full_name }}
+        </strong>
+
+        <img src="{{ member.display_photo.url}}" width=50/> 
+        <p>{{member.age}}</p>
+        <p>{{member.gender}}</p>
+
+        <button>Favourite</button>
+        <button>View profile</button>
+
+    </div>
+{% endfor %}
