@@ -12,7 +12,10 @@ def HomeView(request):
 
 # @login_required
 def MatchedMembersList(request):
+    location = request.GET['location']
+    print(location)
+    member_list = Member.objects.filter(preferred_location__icontains=location) # query all members for now
     # member_list = MemberFilter(request.GET, queryset=Member.objects.all()) # query all members for now
-    member_list = Member.objects.all() # query all members for now
+    # member_list = Member.objects.all() # query all members for now
     return render(request, 'connect_app/connects_list.html', 
     { 'member_list': member_list})
