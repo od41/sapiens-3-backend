@@ -1,5 +1,10 @@
 from django.shortcuts import render
+from django.views import generic
 
-# Create your views here.
-def connects_list(request):
+def HomeView(request):
+    return render(request, 'general/home.html', {})
+
+
+
+def ConnectsList(request):
     return render(request, 'connect_app/connects_list.html', {})

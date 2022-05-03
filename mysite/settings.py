@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'connect_app'
+    'connect_app',
+    'members',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,9 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'members.Member'
+
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -125,3 +129,6 @@ STATIC_ROOT = BASE_DIR / 'static'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'

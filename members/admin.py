@@ -1,3 +1,5 @@
 from django.contrib import admin
+from members.models import Member, Interest
 
-# Register your models here.
+admin.site.register(Member)
+admin.site.register(Interest)
