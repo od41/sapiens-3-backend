@@ -1,0 +1,25 @@
+{
+  "name": "sapiens-3-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tailwind build -i myapp/static/myapp/src/tw.css -o myapp/static/myapp/styles.css"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/od41/sapiens-3-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/od41/sapiens-3-backend/issues"
+  },
+  "homepage": "https://github.com/od41/sapiens-3-backend#readme",
+  "dependencies": {
+    "tailwindcss": "^2.2.16"
+  }
+}
