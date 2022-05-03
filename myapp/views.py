@@ -9,4 +9,4 @@ def index(request):
     return HttpResponse("Hello, world. This is Slim's app There. for Home page")
 
 def home(request):
-    return render(request,'myapp/base.html')
+    return render(request,'myapp/basic.html')
