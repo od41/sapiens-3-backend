@@ -110,6 +110,7 @@ class Member(AbstractBaseUser):
         max_length=12, choices=BELIEFS_C, default=None, null=True, blank=True)
     preferred_address = models.CharField(max_length=600, blank=True, null=True)
     interests = models.ManyToManyField(Interest, related_name='interests', help_text="Your interests, for matching you to your co-tenant")
+    budget = models.DecimalField(default=0.00, decimal_places=2, max_digits=10)
     # liked_apartments = models.ManyToOneRel(
     #     INTERESTS_C, related_name='liked_apartments', blank='true')
     # favourites = models.ManyToManyField(
@@ -135,12 +136,13 @@ class Member(AbstractBaseUser):
     # liked apartments
 
     # phone number
-
-    objects = MyMemberManager()
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
     # REQUIRED_FIELDS = []
+
+
+    objects = MyMemberManager()
+
 
     def __str__(self) -> str:
         return self.email

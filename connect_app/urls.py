@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from connect_app.views import *
+
 
 urlpatterns = [
-    path('', views.HomeView, name='home'),
-    path('connect', views.MatchedMembersList, name='connects_list'),
+    path('connect', matchedMembersList),
 ]

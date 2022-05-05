@@ -1,21 +1,24 @@
-from django.shortcuts import render
-from django.views import generic
-# from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from members.models import Member
+from members.serializers import UserProfileSerializer
 
 
-from .filters import MemberFilter
+@api_view(['GET'])
+def matchedMembersList(request):
+    location = request.GET.get('location') or None
+    age = request.GET.get('age') or None
+    gender = request.GET.get('gender') or None
 
-def HomeView(request):
-    return render(request, 'general/home.html', {})
+    
+    member_list = Member.objects.all() # query all members for now
+    if location:
+        member_list = member_list.filter(preferred_location__icontains=location)
+    if age:
+        member_list = member_list.filter(age=age)   
+    if gender:
+        member_list = member_list.filter(gender__iexact=gender)
 
-# @login_required
-def MatchedMembersList(request):
-    location = request.GET['location']
-    print(location)
-    member_list = Member.objects.filter(preferred_location__icontains=location) # query all members for now
-    # member_list = MemberFilter(request.GET, queryset=Member.objects.all()) # query all members for now
-    # member_list = Member.objects.all() # query all members for now
-    return render(request, 'connect_app/connects_list.html', 
-    { 'member_list': member_list})
+    serializer = UserProfileSerializer(member_list, many=True)
+    return Response(serializer.data, status=200)
