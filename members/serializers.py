@@ -1,5 +1,8 @@
+from dataclasses import field
+from email.mime import image
 from django.forms import CharField
 from rest_framework import serializers
+from connect_app.models import Message, HouseListing, HomeListingImages
 from members import models
 
 
@@ -8,7 +11,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
      
     class Meta:
         model = models.Member
-        fields = ('id', 'first_name', 'username', 'last_name', 'email', 'password', 'preferred_location', 'age', 'budget')
+        fields = ('id', 'first_name', 'username', 'last_name', 'email', 'password', 'preferred_location', 'age', 'budget', 'display_photo')
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -22,7 +25,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             first_name = validated_data['first_name'],
             username = validated_data['username'],
             last_name = validated_data['last_name'],
-            password = validated_data['password']
+            password = validated_data['password'],
+            display_photo =validated_data['display_photo']
         )
         return user
 
@@ -33,3 +37,32 @@ class UserProfileSerializer(serializers.ModelSerializer):
             instance.set_password(password)
 
         return super().update(instance, validated_data)
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    """For Serializing Message"""
+
+    sender = serializers.SlugRelatedField(many=False, slug_field='username', queryset=models.Member.objects.all())
+    receiver = serializers.SlugRelatedField(many=False, slug_field='username', queryset=models.Member.objects.all())
+    
+    class Meta:
+        model = Message
+        fields = ['sender', 'receiver', 'message', 'timestamp']
+
+class HomeListingImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomeListingImages
+        fields = ('upload', 'house_listing')
+
+class HouseListingSerializer(serializers.ModelSerializer):
+     photo_upload = HomeListingImageSerializer(many=True, source='house_listing_houselistingimage', read_only=True)
+     class Meta:
+        model = HouseListing
+        fields = ('location', 'rooms', 'price', 'tenure', 'user', 'description', 'photo_upload')
+        read_only_fields= ('photo_upload',)
+
+    
+
+    
+      
+        
