@@ -11,7 +11,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
      
     class Meta:
         model = models.Member
-        fields = ('id', 'first_name', 'username', 'last_name', 'email', 'password', 'preferred_location', 'age', 'budget', 'display_photo')
+        fields = ('id', 'first_name', 'username', 'last_name', 'email', 'password', 'preferred_location', 'age', 'budget', 'display_photo', 'gender', 'education_level')
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -26,7 +26,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             username = validated_data['username'],
             last_name = validated_data['last_name'],
             password = validated_data['password'],
-            display_photo =validated_data['display_photo']
+            # display_photo =validated_data['display_photo']
         )
         return user
 

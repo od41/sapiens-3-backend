@@ -14,7 +14,7 @@ def matchedMembersList(request):
     location = request.GET.get('location') or None
     age = request.GET.get('age') or None
     gender = request.GET.get('gender') or None
-    education_level = request.GET.get('education')
+    education = request.GET.get('education_level') or None
 
     
     member_list = Member.objects.all() # query all members for now
@@ -24,8 +24,9 @@ def matchedMembersList(request):
         member_list = member_list.filter(age=age)   
     if gender:
         member_list = member_list.filter(gender__iexact=gender)
-    if education_level:
-        member_list.filter(education_level_icontains=education_level)
+    if education:
+        member_list = member_list.filter(education_level__icontains=education)
+ 
 
     serializer = UserProfileSerializer(member_list, many=True)
     return Response(serializer.data, status=200)
