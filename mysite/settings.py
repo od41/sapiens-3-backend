@@ -104,12 +104,11 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('HOST'),
-        'PORT': os.environ.get('PORT'),
-        'DATABASE': os.environ.get('DATABASE')
+        'HOST': 'db-postgresql-fra1-25799-ayinle-do-user-8625609-0.b.db.ondigitalocean.com',
+        'NAME': 'petcha',
+        'USER': 'daniella',
+        'PASSWORD': 'AVNS_KPjv3NEjt1baQUG',
+        'PORT': 25060,
     }
 }
 
