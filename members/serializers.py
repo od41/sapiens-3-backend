@@ -11,7 +11,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
      
     class Meta:
         model = models.Member
-        fields = ('id', 'first_name', 'username', 'last_name', 'email', 'password', 'preferred_location', 'age', 'budget', 'display_photo', 'gender', 'education_level')
+        fields = ('id', 'first_name', 'username', 'last_name', 'email', 'password', 'preferred_location', 'age', 'budget', 'display_photo', 'gender', 'education_level', 'interests', 'beliefs', 'description', 'occupation')
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -49,10 +49,12 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = ['sender', 'receiver', 'message', 'timestamp']
 
+
 class HomeListingImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomeListingImages
         fields = ('upload', 'house_listing')
+
 
 class HouseListingSerializer(serializers.ModelSerializer):
      photo_upload = HomeListingImageSerializer(many=True, source='house_listing_houselistingimage', read_only=True)
@@ -61,6 +63,11 @@ class HouseListingSerializer(serializers.ModelSerializer):
         fields = ('location', 'rooms', 'price', 'tenure', 'user', 'description', 'photo_upload')
         read_only_fields= ('photo_upload',)
 
+
+class ConnectWithAUser(serializers.ModelSerializer):
+    class Meta:
+        model = models.Member
+        fields = ('')
     
 
     
