@@ -7,12 +7,12 @@ from django.contrib.auth.models import (
 """
     Interest Model
 """
-class Interest(models.Model):
-    name = models.CharField( max_length=100, unique=True)
-    # member = models.ManyToManyField(Member, related_name='member', blank=True)
+# class Interest(models.Model):
+#     name = models.CharField( max_length=100, unique=True)
+#     # member = models.ManyToManyField(Member, related_name='member', blank=True)
 
-    def __str__(self) -> str:
-        return self.name
+#     def __str__(self) -> str:
+#         return self.name
 
 """
     MyMemberManager Model
@@ -116,7 +116,7 @@ class Member(AbstractBaseUser):
     beliefs = models.CharField(
         max_length=12, choices=BELIEFS_C, default=None, null=True, blank=True)
     current_address = models.CharField(max_length=600, blank=True, null=True)
-    interests = models.ManyToManyField(Interest, related_name='interests', help_text="Your interests, for matching you to your co-tenant")
+    interests = models.CharField(max_length=600, blank=True, null=True)
     budget = models.DecimalField(default=0.00, decimal_places=2, max_digits=10)
     role = models.CharField(max_length=50, choices=ROLE_C, default=None, null=True, blank=True)
     # liked_apartments = models.ManyToOneRel(

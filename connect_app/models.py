@@ -31,4 +31,15 @@ class HomeListingImages(models.Model):
     house_listing = models.ForeignKey(HouseListing, on_delete=models.CASCADE, null=True, related_name='house_listing_houselistingimage')
     upload = models.ImageField(upload_to='connect/%Y/%m/%d/', default='connect/default_bp.jpg', null=True, blank=True)
 
+
+class Connection(models.Model):
+    sender = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='send')
+    receiver = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='receipient')
+    accepted = models.CharField(max_length=50)
+    rejected = models.CharField(max_length=50)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+           return self.message
+    class Meta:
+           ordering = ('timestamp',)
     

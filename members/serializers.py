@@ -2,12 +2,19 @@ from dataclasses import field
 from email.mime import image
 from django.forms import CharField
 from rest_framework import serializers
-from connect_app.models import Message, HouseListing, HomeListingImages
+from connect_app.models import Connection, Message, HouseListing, HomeListingImages
 from members import models
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
     """ Serializes our user profile object"""
+    # interests = serializers.SlugRelatedField(
+    #     # many=True,
+    #     # read_only=True,
+    #     slug_field='interests',
+    #     queryset=models.Interest.objects.all()
+    #  )
+
      
     class Meta:
         model = models.Member
@@ -64,12 +71,21 @@ class HouseListingSerializer(serializers.ModelSerializer):
         read_only_fields= ('photo_upload',)
 
 
-class ConnectWithAUser(serializers.ModelSerializer):
+class ConnectWithAUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Member
-        fields = ('')
-    
+        fields = ['sender', 'receiver', 'accepted', 'rejected','timestamp']
+
+
 
     
       
-        
+    #     def get(self, request, *args, **kwargs):
+    #     allOrders = Order.objects.all()
+    #     args = {"allOrders": allOrders}
+    #     return render(request, self.template_name, args)
+
+    # def post(self, request):
+    #     orderId = self.request.GET.get("order_id")
+    #     statusAccept = self.request.GET.get("acceptButton")
+    #     statusReject = self.request.GET.get("rejectButton")

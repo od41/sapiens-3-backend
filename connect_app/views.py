@@ -3,10 +3,10 @@ from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from connect_app.models import Message, HouseListing
+from connect_app.models import Connection, Message, HouseListing
 
 from members.models import Member
-from members.serializers import HouseListingSerializer, MessageSerializer, UserProfileSerializer, HomeListingImageSerializer
+from members.serializers import ConnectWithAUserSerializer, HouseListingSerializer, MessageSerializer, UserProfileSerializer, HomeListingImageSerializer
 
 
 @api_view(['GET'])
@@ -77,4 +77,30 @@ def upload(request):
         return JsonResponse(serializer.errors, status=400)
 
 
-     
+def connect(self,request, sender=None, receiver=None):
+    """
+    List all required connection, or create a new connection.
+    """
+    if request.method == 'GET':
+        connection = Connection.objects()
+        serializer = ConnectWithAUserSerializer(connection, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    elif request.method == 'POST':
+        statusAccept = self.request.POST.get("action") == "accept"
+        statusReject = self.request.POST.get("action") == "reject"
+        data = JSONParser().parse(request)
+        serializer = ConnectWithAUserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+
+    # def get(self, request, *args, **kwargs):
+    # allConnections = Connection.objects.all()
+
+
+    # def post(self, request):
+    # connectid = 
+    # statusAccept = self.request.POST.get("action") == "accept"
+    # statusReject = self.request.POST.get("action") == "reject"
